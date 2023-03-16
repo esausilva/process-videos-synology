@@ -27,9 +27,9 @@ for videoFile in $allPixelVideoFiles; do
 
   ffmpeg -i "$videoFile" -c:v libx264 -crf 16 -c:a aac -map_metadata 0 "${directory}/${fileName}_out.${extension}"
   
-  echo "*****************************"
-  echo "**** Sleeping 15 seconds ****"
-  echo "*****************************"
+  echo "****************************"
+  echo "***** Sleep 15 seconds *****"
+  echo "****************************"
   sleep 15
 done
 

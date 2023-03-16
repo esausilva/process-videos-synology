@@ -2,6 +2,12 @@
 
 The script takes in a path as the first argument where the videos that need processing are saved.
 
+```
+./script.sh "/path/to/directory"
+```
+
+Before running the script, you might need to assign executable permissions `chmod +x script.sh`.
+
 The script changes the default IFS to a new line (`\n`) character, then at the end it restores the original IFS. This is because inside a `for` loop, if the directory path has spaces, the terminal will split the path string into multiple lines, thus, creating an invalid path. By changing the IFS to a new line character, the splitting will happen at the end of the string.
 
 The first step is to copy the original taken timestamp into the "created" and "modified" metadata using the [exiftool](https://exiftool.org/) tool.
