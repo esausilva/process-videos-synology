@@ -1,6 +1,6 @@
 # Process Video Files For Synology Photos
 
-The script takes in a path as the first argument where the videos that need processing are saved.
+The script takes in a path as the first argument where the video files that need processing are saved. Make sure to enclose the path with quotation marks.
 
 ```
 ./script.sh "/path/to/directory"
@@ -12,7 +12,7 @@ The script changes the default IFS to a new line (`\n`) character, then at the e
 
 The first step is to copy the original taken timestamp into the "created" and "modified" metadata using the [exiftool](https://exiftool.org/) tool.
 
-The second step is to transcode known videos taken with HVEC (H.265) encoding to H.264 since Synology Photos cannot play or index videos encoded with HVEC. In my case, my Pixel phone takes videos in this format, so the script searches video files with pattern `PXL*.mp4`. For this step, the script uses [ffmpeg](https://ffmpeg.org/) tool.
+The second step is to transcode video files taken with HVEC (H.265) encoding to H.264 since Synology Photos cannot play or index videos encoded with HVEC. For this step, the script uses [ffmpeg](https://ffmpeg.org/) tool.
 
 ## Giving Back
 
