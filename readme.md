@@ -14,6 +14,8 @@ The first step is to copy the original taken timestamp into the "created" and "m
 
 The second step is to transcode video files taken with HVEC (H.265) encoding to H.264 since Synology Photos cannot play or index videos encoded with HVEC. For this step, the script uses [ffmpeg](https://ffmpeg.org/) tool.
 
+The transcoded video file will have the same name as the original file, but with `_out` string appended at the end and it will be created in the same directory as the original video file.
+
 ## Giving Back
 
 If you find this repo useful in any way, consider getting me a coffee by clicking on the image below. I would really appreciate it!
