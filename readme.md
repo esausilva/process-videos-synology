@@ -10,11 +10,21 @@ Before running the script, you might need to assign executable permissions `chmo
 
 The script changes the default IFS to a new line (`\n`) character, then at the end it restores the original IFS. This is because inside a `for` loop, if the directory path has spaces, the terminal will split the path string into multiple lines, thus, creating an invalid path. By changing the IFS to a new line character, the splitting will happen at the end of the string.
 
-The first step is to copy the original taken timestamp into the "created" and "modified" metadata using the [exiftool](https://exiftool.org/) tool.
+The first step is to get the original taken timestamp which is in UTC, then convert this timestamp into Central Time.
+
+After we have the timestamp in Central Time, copy into the "created" and "modified" metadata using the [exiftool](https://exiftool.org/) tool.
 
 The second step is to transcode video files taken with HVEC (H.265) encoding to H.264 since Synology Photos cannot play or index videos encoded with HVEC. For this step, the script uses [ffmpeg](https://ffmpeg.org/) tool.
 
 The transcoded video file will have the same name as the original file, but with `_out` string appended at the end and it will be created in the same directory as the original video file.
+
+### Note Related to Converting UTC Timestamp to CT
+
+Change `-05:00` to your timezone at the end of the below conversion.
+
+```
+trackCreateDateInCentralTimeZone=$(date -jf "%Y:%m:%d %H:%M:%S %z" "$trackCreateDate +0000" +"%Y:%m:%d %H:%M:%S-05:00")
+```
 
 ## Giving Back
 

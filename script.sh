@@ -13,9 +13,12 @@ defaultIFS=$IFS
 IFS=$'\n'
 
 for videoFile in $allVideoFiles; do
+  trackCreateDate=$(exiftool -TrackCreateDate -s3 "$videoFile") # This date is in UTC
+  trackCreateDateInCentralTimeZone=$(date -jf "%Y:%m:%d %H:%M:%S %z" "$trackCreateDate +0000" +"%Y:%m:%d %H:%M:%S-05:00")
+
   # Restore 'Create' and 'Modify' date to original taken timestamp
-  exiftool "-FileCreateDate<TrackCreateDate" "$videoFile"
-  exiftool "-FileModifyDate<TrackCreateDate" "$videoFile"
+  exiftool "-FileCreateDate=$trackCreateDateInCentralTimeZone" "$videoFile"
+  exiftool "-FileModifyDate=$trackCreateDateInCentralTimeZone" "$videoFile"
   
   isHvecEncoded=$(exiftool "$videoFile" | egrep 'Compressor[[:space:]]{1,}ID[[:space:]]{1,}:[[:space:]]{1,}hvc1')
   
