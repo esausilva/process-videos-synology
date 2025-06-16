@@ -13,6 +13,8 @@ defaultIFS=$IFS
 IFS=$'\n'
 
 for videoFile in $allVideoFiles; do
+  echo "$videoFile"
+
   trackCreateDate=$(exiftool -TrackCreateDate -s3 "$videoFile") # This date is in UTC
   trackCreateDateInCentralTimeZone=$(date -jf "%Y:%m:%d %H:%M:%S %z" "$trackCreateDate +0000" +"%Y:%m:%d %H:%M:%S-05:00")
 
@@ -20,10 +22,10 @@ for videoFile in $allVideoFiles; do
   exiftool "-FileCreateDate=$trackCreateDateInCentralTimeZone" "$videoFile"
   exiftool "-FileModifyDate=$trackCreateDateInCentralTimeZone" "$videoFile"
   
-  isHvecEncoded=$(exiftool "$videoFile" | egrep 'Compressor[[:space:]]{1,}ID[[:space:]]{1,}:[[:space:]]{1,}hvc1')
+  isHevcEncoded=$(exiftool "$videoFile" | egrep 'Compressor[[:space:]]{1,}ID[[:space:]]{1,}:[[:space:]]{1,}hvc1')
   
-  # Transcode video files taken with HVEC(H.265) to H.264
-  if [ -n "$isHvecEncoded" ]
+  # Transcode video files taken with HEVC(H.265) to H.264
+  if [ -n "$isHevcEncoded" ]
   then
     fileName=$(basename -s .mp4 "$videoFile")
     extension="${videoFile##*.}"
@@ -36,7 +38,6 @@ for videoFile in $allVideoFiles; do
     echo "****************************"
     sleep 15
   fi
-
 done
 
 # Change IFS back to default

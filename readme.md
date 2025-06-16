@@ -14,7 +14,7 @@ The first step is to get the original taken timestamp which is in UTC, then conv
 
 After we have the timestamp in Central Time, copy into the "created" and "modified" metadata using the [exiftool](https://exiftool.org/) tool.
 
-The second step is to transcode video files taken with HVEC (H.265) encoding to H.264 since Synology Photos cannot play or index videos encoded with HVEC. For this step, the script uses [ffmpeg](https://ffmpeg.org/) tool.
+The second step is to transcode video files taken with HEVC (H.265) encoding to H.264 since Synology Photos cannot play or index videos encoded with HEVC. For this step, the script uses [ffmpeg](https://ffmpeg.org/) tool.
 
 The transcoded video file will have the same name as the original file, but with `_out` string appended at the end and it will be created in the same directory as the original video file.
 
