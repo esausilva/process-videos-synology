@@ -2,8 +2,10 @@
 
 The script takes in a path as the first argument where the video files that need processing are saved. Make sure to enclose the path with quotation marks.
 
+An optional second argument corresponding to the Time Zone offset when the video was taken. The format needs to be: `+/-HH:MM`.
+
 ```
-./script.sh "/path/to/directory"
+./script.sh "/path/to/directory" "-05:00"
 ```
 
 Before running the script, you might need to assign executable permissions `chmod +x script.sh`.
@@ -18,12 +20,12 @@ The second step is to transcode video files taken with HEVC (H.265) encoding to 
 
 The transcoded video file will have the same name as the original file, but with `_out` string appended at the end and it will be created in the same directory as the original video file.
 
-### Note Related to Converting UTC Timestamp to CT
+### Note Related to Converting the UTC Timestamp to your Time Zone
 
-Change `-05:00` to your timezone at the end of the below conversion.
+If you don't pass in the optional time zone offset, the script defaults to CDT offset, which is `-05:00`. Change the default offset value in the script to whichever you like if you don't want to pass the second argument every time.
 
-```
-trackCreateDateInCentralTimeZone=$(date -jf "%Y:%m:%d %H:%M:%S %z" "$trackCreateDate +0000" +"%Y:%m:%d %H:%M:%S-05:00")
+```bash
+offset=${2:-"-05:00"}
 ```
 
 ## Giving Back
